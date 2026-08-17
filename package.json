@@ -1,0 +1,29 @@
+{
+  "name": "dataville-mcp",
+  "version": "0.1.0",
+  "description": "MCP server exposing Dataville's data source API as tools for MCP clients",
+  "private": false,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/datavilleorg/dataville-mcp.git"
+  },
+  "type": "module",
+  "bin": {
+    "dataville-mcp": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.0"
+  }
+}
