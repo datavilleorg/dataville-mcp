@@ -3,9 +3,8 @@ export interface DataSourceInfo {
   description: string;
 }
 
-// Mirrors the source names registered in backend/src/services/dataSource.ts.
-// Hand-maintained since this package intentionally has no shared imports
-// with backend/ — update this list when a new source is added there.
+// Hand-maintained list of data sources supported by the Dataville API.
+// Update when Dataville adds or removes a supported source.
 export const DATAVILLE_SOURCES: DataSourceInfo[] = [
   { name: "wikipedia", description: "Wikipedia articles" },
   { name: "arxiv", description: "arXiv preprints" },
