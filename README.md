@@ -17,7 +17,17 @@ Requires a Dataville API key — get one from the [Dataville dashboard](https://
 
 ## Setup
 
-Add this to your MCP client config (Claude Code / Claude Desktop), with `DATAVILLE_API_KEY` set to your own key:
+This is a local (stdio) MCP server: the client launches it on your machine via
+`npx`. It works in any MCP client that runs local servers — Claude Desktop and
+Claude Code are covered below.
+
+### Prerequisites
+
+- **Node.js** (LTS) installed — this is what runs `npx`. Without it the server
+  fails to start. Check with `node --version`.
+- A **Dataville API key** — get one from https://app.dataville.com/api-keys.
+
+The config block is the same everywhere; only *where* you put it differs:
 
 ```json
 {
@@ -35,7 +45,36 @@ Add this to your MCP client config (Claude Code / Claude Desktop), with `DATAVIL
 
 No install step needed — `npx` fetches and runs the package on demand.
 
-`DATAVILLE_API_BASE_URL` is optional and defaults to `https://api.dataville.com`; set it to `http://localhost:5000` to point at a local backend during development.
+### Claude Desktop
+
+1. Open **Settings → Developer → Edit Config**. This opens `claude_desktop_config.json`:
+   - macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
+   - Windows: `%APPDATA%\Claude\claude_desktop_config.json`
+2. Add the block above (merge into `mcpServers` if the file already has one),
+   with your real key.
+3. **Fully quit and reopen** Claude Desktop — quit from the menu bar / system
+   tray, not just closing the window.
+4. The dataville tools now appear under the tools icon in the chat box, and
+   Settings → Developer shows `dataville` running.
+
+Note: the server appears as **tools**, not in the **Connectors** directory —
+that directory only lists remote (hosted) connectors and will not find a local
+server. Ask naturally ("get Apple's latest revenue from dataville") and the
+client calls the tool.
+
+### Claude Code
+
+```bash
+claude mcp add dataville -e DATAVILLE_API_KEY=dataville_your_key_here -- npx -y @dataville/dataville-mcp
+```
+
+Restart the session so the tools load. Add `-s user` to make it available in
+every project instead of just the current one.
+
+### Configuration
+
+`DATAVILLE_API_BASE_URL` is optional and defaults to `https://api.dataville.com`;
+set it to `http://localhost:5000` to point at a local backend during development.
 
 ### Running from source
 

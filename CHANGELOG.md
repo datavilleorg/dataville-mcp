@@ -8,6 +8,10 @@ All notable changes to this project are documented here. This project follows
 ### Changed
 - `news` source description now states it is a historical archive, not live
   news, so clients don't expect current headlines.
+- README Setup rewritten with per-client steps (Claude Desktop config-file
+  location + quit/reopen, Claude Code `claude mcp add`), a prerequisites section
+  (Node.js, API key), and a note that the server appears as tools rather than in
+  the Connectors directory.
 
 ## [0.1.4] - 2026-08-21
 
