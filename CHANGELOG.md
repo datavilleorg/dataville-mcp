@@ -5,6 +5,12 @@ All notable changes to this project are documented here. This project follows
 
 ## [Unreleased]
 
+## [0.1.4] - 2026-08-21
+
+### Changed
+- README now describes Dataville and lists all ten data sources reachable
+  through the server. Documentation only; no functional changes.
+
 ## [0.1.3] - 2026-08-21
 
 ### Fixed
