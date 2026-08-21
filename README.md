@@ -2,6 +2,12 @@
 
 MCP server exposing Dataville's data source API as tools for MCP clients (Claude Desktop, Claude Code, etc.).
 
+[Dataville](https://dataville.com) is a unified REST API over ten public datasets —
+Wikipedia, arXiv, Project Gutenberg, US Census, USDA FoodData, Papers with Code,
+SEC EDGAR, OpenAlex, PyPI, and Stack Exchange — behind one interface and one API
+key, with CSV/Parquet export and SQL query support. This package lets an MCP
+client search any of those sources as a tool call.
+
 Requires a Dataville API key — get one from the [Dataville dashboard](https://app.dataville.com/api-keys).
 
 ## Tools
