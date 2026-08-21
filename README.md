@@ -91,6 +91,22 @@ every project instead of just the current one.
 `DATAVILLE_API_BASE_URL` is optional and defaults to `https://api.dataville.com`;
 set it to `http://localhost:5000` to point at a local backend during development.
 
+## Check that it works
+
+Ask your client one of these. Each answer is checkable on purpose — a model that
+skipped the tool and answered from memory sounds just as confident, so a reply
+on its own proves nothing.
+
+| Ask | What proves it |
+| --- | --- |
+| `Which data sources does Dataville have?` | Calls `list_dataville_sources` and names all eleven. |
+| `Using Dataville, what is the latest version of the requests package on PyPI?` | A version you can confirm on pypi.org — and it moves, so it can't come from memory. |
+| `Using Dataville, get the latest SEC filing for AAPL and its revenue.` | A form type, filing date, revenue figure, and a sec.gov link to open. |
+| `Using Dataville, how much protein is in 100g of uncooked quinoa?` | The exact USDA figure, 14.1 g per 100 g. |
+
+Clients show when a tool ran. If you don't see that, say "use dataville" in the
+prompt to make it explicit, and check the answer against the source.
+
 ### Running from source
 
 ```bash
