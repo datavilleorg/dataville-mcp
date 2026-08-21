@@ -91,6 +91,15 @@ every project instead of just the current one.
 `DATAVILLE_API_BASE_URL` is optional and defaults to `https://api.dataville.com`;
 set it to `http://localhost:5000` to point at a local backend during development.
 
+### Running from source
+
+```bash
+git clone https://github.com/datavilleorg/dataville-mcp.git
+cd dataville-mcp
+npm install
+npm run build
+```
+
 ## Check that it works
 
 Ask your client one of these. Each answer is checkable on purpose — a model that
@@ -106,15 +115,6 @@ on its own proves nothing.
 
 Clients show when a tool ran. If you don't see that, say "use dataville" in the
 prompt to make it explicit, and check the answer against the source.
-
-### Running from source
-
-```bash
-git clone https://github.com/datavilleorg/dataville-mcp.git
-cd dataville-mcp
-npm install
-npm run build
-```
 
 ## Development
 
