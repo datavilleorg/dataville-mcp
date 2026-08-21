@@ -43,5 +43,13 @@ npm run build
 ## Development
 
 ```bash
-npm run dev   # tsx watch
+npm run dev    # tsx watch
+npm test       # node test runner
+npm run build  # tsc
 ```
+
+## Releasing
+
+Publishes run from CI via npm trusted publishing (OIDC) — no tokens are stored.
+To cut a release: bump the version, update `CHANGELOG.md`, then publish a GitHub
+Release for the new tag. The `Publish` workflow builds, tests, and publishes to npm.

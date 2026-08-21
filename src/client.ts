@@ -1,4 +1,5 @@
 const DEFAULT_BASE_URL = "https://api.dataville.com";
+const USER_AGENT = "dataville-mcp/0.1.0";
 
 export class DatavilleApiError extends Error {
   constructor(public status: number, message: string) {
@@ -33,7 +34,10 @@ export async function searchDataSource(
   }
 
   const response = await fetch(url, {
-    headers: { Authorization: `Bearer ${apiKey}` },
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "User-Agent": USER_AGENT,
+    },
   });
 
   const body = await response.json().catch(() => undefined);
