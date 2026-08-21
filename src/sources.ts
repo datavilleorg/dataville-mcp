@@ -18,5 +18,5 @@ export const DATAVILLE_SOURCES: DataSourceInfo[] = [
   { name: "openalex", description: "OpenAlex scholarly works" },
   { name: "pypi", description: "PyPI package metadata" },
   { name: "stackexchange", description: "Stack Exchange Q&A" },
-  { name: "news", description: "News front-page headlines and summaries" },
+  { name: "news", description: "Front-page news headlines from a historical archive (not live/current news)" },
 ];
