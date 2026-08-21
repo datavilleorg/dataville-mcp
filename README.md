@@ -17,9 +17,24 @@ Requires a Dataville API key — get one from the [Dataville dashboard](https://
 
 ## Setup
 
-This is a local (stdio) MCP server: the client launches it on your machine via
-`npx`. It works in any MCP client that runs local servers — Claude Desktop and
-Claude Code are covered below.
+This package is a local (stdio) MCP server: the client launches it on your
+machine via `npx`. If you don't need it running locally, connecting to
+Dataville's hosted endpoint instead takes one line and no install.
+
+### Hosted, in one line (no install)
+
+Dataville also serves MCP directly over HTTP, so a client can connect without
+running anything locally — no Node, no config file, no restart:
+
+```bash
+claude mcp add --transport http dataville https://api.dataville.com/mcp
+```
+
+That works with no credentials at all (anonymous limits). Add
+`--header "Authorization: Bearer dataville_your_key_here"` for the full quota.
+Other clients take the same URL; the app's Integrations page has the exact
+snippet for each. Use the hosted endpoint unless you specifically want to pin a
+version or work offline — the rest of this section covers that local setup.
 
 ### Prerequisites
 
