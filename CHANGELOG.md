@@ -5,6 +5,8 @@ All notable changes to this project are documented here. This project follows
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-08-21
+
 ### Added
 - `User-Agent: dataville-mcp/<version>` header on API requests, so MCP-originated
   traffic is distinguishable in Dataville's query logs.
@@ -12,6 +14,9 @@ All notable changes to this project are documented here. This project follows
   source registry.
 - CI workflow (build + test on PRs) and a release-triggered publish workflow using
   npm trusted publishing.
+
+### Fixed
+- Compiled test files are no longer included in the published package.
 
 ## [0.1.0] - 2026-08-17
 

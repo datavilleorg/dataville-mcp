@@ -1,6 +1,6 @@
 {
   "name": "@dataville/dataville-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "MCP server exposing Dataville's data source API as tools for MCP clients",
   "private": false,
   "license": "MIT",
@@ -12,7 +12,11 @@
   "bin": {
     "dataville-mcp": "dist/index.js"
   },
-  "files": ["dist", "README.md", "LICENSE"],
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsc",
     "prepublishOnly": "npm run build",

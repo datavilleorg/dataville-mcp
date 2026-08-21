@@ -1,5 +1,7 @@
 const DEFAULT_BASE_URL = "https://api.dataville.com";
-const USER_AGENT = "dataville-mcp/0.1.0";
+// Keep in sync with package.json version (enforced by a test).
+export const VERSION = "0.1.1";
+const USER_AGENT = `dataville-mcp/${VERSION}`;
 
 export class DatavilleApiError extends Error {
   constructor(public status: number, message: string) {

@@ -2,12 +2,12 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
-import { searchDataSource, DatavilleApiError } from "./client.js";
+import { searchDataSource, DatavilleApiError, VERSION } from "./client.js";
 import { DATAVILLE_SOURCES } from "./sources.js";
 
 const server = new McpServer({
   name: "dataville-mcp-server",
-  version: "0.1.0",
+  version: VERSION,
 });
 
 server.registerTool(
