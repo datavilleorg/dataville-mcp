@@ -5,6 +5,10 @@ All notable changes to this project are documented here. This project follows
 
 ## [Unreleased]
 
+### Changed
+- `news` source description now states it is a historical archive, not live
+  news, so clients don't expect current headlines.
+
 ## [0.1.4] - 2026-08-21
 
 ### Changed
