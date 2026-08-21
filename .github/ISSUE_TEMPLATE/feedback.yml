@@ -1,0 +1,25 @@
+name: Feedback or feature request
+description: Suggest a tool, a change, or tell us what's missing
+labels: ["enhancement"]
+assignees: ["mansipathak"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        We're actively looking for feedback from early testers on tool design and
+        what to prioritize next. See the roadmap in the README.
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: What would you like to see?
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: What are you trying to do?
+      description: The underlying task helps us more than a specific API shape.
+    validations:
+      required: true
