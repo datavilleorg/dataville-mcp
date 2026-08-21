@@ -5,6 +5,15 @@ All notable changes to this project are documented here. This project follows
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-08-21
+
+### Fixed
+- An unrecognised `DATAVILLE_API_KEY` now raises a clear error instead of
+  silently returning anonymous-tier results. Dataville's API accepts unknown
+  keys and falls back to anonymous access (HTTP 200), which meant a typo'd or
+  revoked key looked like it was working while applying the much lower anonymous
+  rate limit and not attributing usage to the account.
+
 ## [0.1.1] - 2026-08-21
 
 ### Added

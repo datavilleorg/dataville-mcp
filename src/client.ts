@@ -1,12 +1,28 @@
 const DEFAULT_BASE_URL = "https://api.dataville.com";
 // Keep in sync with package.json version (enforced by a test).
-export const VERSION = "0.1.1";
+export const VERSION = "0.1.2";
 const USER_AGENT = `dataville-mcp/${VERSION}`;
 
 export class DatavilleApiError extends Error {
   constructor(public status: number, message: string) {
     super(message);
     this.name = "DatavilleApiError";
+  }
+}
+
+/**
+ * Raised when the API accepted the request but did not recognise our API key.
+ *
+ * Dataville's auth middleware never rejects outright — an unrecognised key
+ * falls through to anonymous access, which still returns data but under the
+ * much lower anonymous rate limit and without attributing usage to the
+ * account. Left unchecked that failure is invisible inside an MCP client, so
+ * we surface it explicitly instead of returning results that look fine.
+ */
+export class DatavilleAuthError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "DatavilleAuthError";
   }
 }
 
@@ -49,6 +65,21 @@ export async function searchDataSource(
       (body && typeof body === "object" && "error" in body && String((body as { error: unknown }).error)) ||
       `Dataville API request failed with status ${response.status}`;
     throw new DatavilleApiError(response.status, message);
+  }
+
+  // We always send an API key, so an "anonymous" account state means the key
+  // was not accepted. Fail loudly rather than silently serving anonymous-tier
+  // results that are neither attributed nor billed to the user's account.
+  if (
+    body &&
+    typeof body === "object" &&
+    (body as { account_state?: unknown }).account_state === "anonymous"
+  ) {
+    throw new DatavilleAuthError(
+      "Your DATAVILLE_API_KEY was not recognised, so this request fell back to anonymous access " +
+        "(much lower rate limits, and usage is not attributed to your account). " +
+        "Check the key in your MCP client config, or generate a new one at https://app.dataville.com/api-keys."
+    );
   }
 
   return body;

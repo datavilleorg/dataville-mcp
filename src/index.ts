@@ -2,7 +2,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
-import { searchDataSource, DatavilleApiError, VERSION } from "./client.js";
+import { searchDataSource, VERSION } from "./client.js";
 import { DATAVILLE_SOURCES } from "./sources.js";
 
 const server = new McpServer({
@@ -42,7 +42,7 @@ server.registerTool(
       const result = await searchDataSource(source, keywords, params);
       return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
     } catch (error) {
-      const message = error instanceof DatavilleApiError ? error.message : String(error);
+      const message = error instanceof Error ? error.message : String(error);
       return { content: [{ type: "text", text: message }], isError: true };
     }
   }

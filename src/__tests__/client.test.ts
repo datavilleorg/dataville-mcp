@@ -1,6 +1,6 @@
 import { test, beforeEach, afterEach } from "node:test";
 import assert from "node:assert/strict";
-import { searchDataSource, DatavilleApiError } from "../client.js";
+import { searchDataSource, DatavilleApiError, DatavilleAuthError } from "../client.js";
 
 const ORIGINAL_ENV = { ...process.env };
 const originalFetch = global.fetch;
@@ -67,6 +67,38 @@ test("throws DatavilleApiError with the API's error message on a non-ok response
       return true;
     }
   );
+});
+
+test("throws DatavilleAuthError when the API falls back to anonymous access", async () => {
+  // Dataville's auth middleware never rejects: an unrecognised key returns 200
+  // with account_state "anonymous" instead of a 401.
+  global.fetch = (async () => {
+    return new Response(
+      JSON.stringify({ status: "success", account_state: "anonymous", data: { title: "Machine learning" } }),
+      { status: 200 }
+    );
+  }) as typeof fetch;
+
+  await assert.rejects(
+    () => searchDataSource("wikipedia", "Machine learning"),
+    (err: unknown) => {
+      assert.ok(err instanceof DatavilleAuthError);
+      assert.match(err.message, /not recognised/);
+      return true;
+    }
+  );
+});
+
+test("returns results normally when the request is authenticated", async () => {
+  global.fetch = (async () => {
+    return new Response(
+      JSON.stringify({ status: "success", account_state: "authenticated", data: { title: "Machine learning" } }),
+      { status: 200 }
+    );
+  }) as typeof fetch;
+
+  const result = await searchDataSource("wikipedia", "Machine learning");
+  assert.equal((result as any).account_state, "authenticated");
 });
 
 test("falls back to a generic error message when the response body isn't JSON", async () => {
