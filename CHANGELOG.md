@@ -5,6 +5,23 @@ All notable changes to this project are documented here. This project follows
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-08-21
+
+### Fixed
+- The `paperswithcode` source was listed as `pwc`, a name the API does not
+  accept — that source was unreachable.
+- API error messages are now surfaced to the client. They are nested under
+  `data.error`, but were being read from the top level, so every API error was
+  replaced with a bare "request failed with status N". Callers now see useful
+  messages such as `No results found for "x" in pypi` and the full list of
+  valid sources on an unknown-source error.
+
+### Added
+- `news` (front-page headlines) to the source list; it was supported by the API
+  but undocumented here.
+- `npm run test:integration` — live checks that every declared source name is
+  accepted by the API. Requires `DATAVILLE_API_KEY`; skipped without one.
+
 ## [0.1.2] - 2026-08-21
 
 ### Fixed

@@ -1,6 +1,6 @@
 {
   "name": "@dataville/dataville-mcp",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "MCP server exposing Dataville's data source API as tools for MCP clients",
   "private": false,
   "license": "MIT",
@@ -22,7 +22,8 @@
     "prepublishOnly": "npm run build",
     "dev": "tsx watch src/index.ts",
     "start": "node dist/index.js",
-    "test": "tsx --test src/__tests__/*.test.ts"
+    "test": "tsx --test src/__tests__/*.test.ts",
+    "test:integration": "tsx --test src/__tests__/*.itest.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12.0",

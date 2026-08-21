@@ -1,6 +1,6 @@
 const DEFAULT_BASE_URL = "https://api.dataville.com";
 // Keep in sync with package.json version (enforced by a test).
-export const VERSION = "0.1.2";
+export const VERSION = "0.1.3";
 const USER_AGENT = `dataville-mcp/${VERSION}`;
 
 export class DatavilleApiError extends Error {
@@ -61,9 +61,18 @@ export async function searchDataSource(
   const body = await response.json().catch(() => undefined);
 
   if (!response.ok) {
+    // Errors come back as { status: "error", data: { error: "..." } }. Those
+    // messages are useful to the model — "no results for X", or the full list
+    // of valid sources — so prefer them over a bare status code.
+    const apiMessage =
+      body && typeof body === "object"
+        ? (body as { data?: { error?: unknown } }).data?.error ??
+          (body as { error?: unknown }).error
+        : undefined;
     const message =
-      (body && typeof body === "object" && "error" in body && String((body as { error: unknown }).error)) ||
-      `Dataville API request failed with status ${response.status}`;
+      typeof apiMessage === "string" && apiMessage.length > 0
+        ? apiMessage
+        : `Dataville API request failed with status ${response.status}`;
     throw new DatavilleApiError(response.status, message);
   }
 

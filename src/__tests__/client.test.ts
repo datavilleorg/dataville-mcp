@@ -101,6 +101,37 @@ test("returns results normally when the request is authenticated", async () => {
   assert.equal((result as any).account_state, "authenticated");
 });
 
+test("surfaces the API's error message from data.error", async () => {
+  // Dataville nests error messages under `data.error`, not at the top level.
+  global.fetch = (async () => {
+    return new Response(
+      JSON.stringify({
+        status: "error",
+        account_state: "authenticated",
+        data: { error: 'No results found for "transformer" in pypi' },
+      }),
+      { status: 404 }
+    );
+  }) as typeof fetch;
+
+  await assert.rejects(
+    () => searchDataSource("pypi", "transformer"),
+    (err: unknown) => {
+      assert.ok(err instanceof DatavilleApiError);
+      assert.equal(err.message, 'No results found for "transformer" in pypi');
+      return true;
+    }
+  );
+});
+
+test("still reads a top-level error field if the API returns one", async () => {
+  global.fetch = (async () => {
+    return new Response(JSON.stringify({ error: "rate limit exceeded" }), { status: 429 });
+  }) as typeof fetch;
+
+  await assert.rejects(() => searchDataSource("wikipedia", "test"), /rate limit exceeded/);
+});
+
 test("falls back to a generic error message when the response body isn't JSON", async () => {
   global.fetch = (async () => {
     return new Response("not json", { status: 500 });
