@@ -1,6 +1,6 @@
 const DEFAULT_BASE_URL = "https://api.dataville.com";
 // Keep in sync with package.json version (enforced by a test).
-export const VERSION = "0.1.4";
+export const VERSION = "0.1.5";
 const USER_AGENT = `dataville-mcp/${VERSION}`;
 
 export class DatavilleApiError extends Error {
@@ -43,6 +43,15 @@ export async function searchDataSource(
   params?: Record<string, string | number | boolean>
 ): Promise<unknown> {
   const { apiKey, baseUrl } = getConfig();
+
+  // encodeURIComponent leaves "." alone, and URL resolution collapses a "." or
+  // ".." segment — so source ".." would send the user's key to /<keywords>
+  // instead of a data route.
+  for (const [name, value] of [["source name", source], ["search term", keywords]] as const) {
+    if (value === "." || value === "..") {
+      throw new Error(`"${value}" is not a valid ${name}. Use list_dataville_sources to see valid source names.`);
+    }
+  }
 
   const url = new URL(`/${encodeURIComponent(source)}/${encodeURIComponent(keywords)}`, baseUrl);
   if (params) {
