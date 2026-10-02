@@ -5,6 +5,14 @@ All notable changes to this project are documented here. This project follows
 
 ## [Unreleased]
 
+## [0.1.5] - 2026-10-02
+
+### Fixed
+- `search_dataville` rejects a source or keywords of exactly `.` or `..`.
+  `encodeURIComponent` leaves dots alone and URL resolution collapses those
+  segments, so source `..` sent the request (with the user's API key) to
+  `/<keywords>` on the API instead of a data route.
+
 ### Changed
 - `news` source description now states it is a historical archive, not live
   news, so clients don't expect current headlines.

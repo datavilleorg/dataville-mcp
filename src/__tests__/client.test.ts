@@ -40,6 +40,32 @@ test("sends Authorization, User-Agent headers and returns the parsed body on suc
   assert.deepEqual(result, { ok: true });
 });
 
+test("rejects dot segments that would resolve the URL away from the data route", async () => {
+  let called = false;
+  global.fetch = (async () => {
+    called = true;
+    return new Response(JSON.stringify({}), { status: 200 });
+  }) as typeof fetch;
+
+  for (const [source, keywords] of [["..", "health"], [".", "x"], ["wikipedia", ".."], ["wikipedia", "."]]) {
+    await assert.rejects(() => searchDataSource(source, keywords), /is not a valid/);
+  }
+  assert.equal(called, false);
+});
+
+test("keeps dots that are not whole segments", async () => {
+  let capturedUrl: string | undefined;
+  global.fetch = (async (url: any) => {
+    capturedUrl = String(url);
+    return new Response(JSON.stringify({}), { status: 200 });
+  }) as typeof fetch;
+
+  await searchDataSource("pypi", "...");
+  assert.equal(capturedUrl, "https://api.example.test/pypi/...");
+  await searchDataSource("wikipedia", "%2e%2e");
+  assert.equal(capturedUrl, "https://api.example.test/wikipedia/%252e%252e");
+});
+
 test("appends optional params as query string", async () => {
   let capturedUrl: string | undefined;
   global.fetch = (async (url: any) => {
