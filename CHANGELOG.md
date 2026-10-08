@@ -5,6 +5,8 @@ All notable changes to this project are documented here. This project follows
 
 ## [Unreleased]
 
+## [0.1.7] - 2026-10-08
+
 ### Added
 - `describe_dataville_source` tool: a source's keyword format, an example that
   returns a result, and the SQL tables and columns it has. Static; makes no
