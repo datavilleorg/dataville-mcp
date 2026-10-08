@@ -128,4 +128,6 @@ npm run build  # tsc
 
 Publishes run from CI via npm trusted publishing (OIDC) — no tokens are stored.
 To cut a release: bump the version, update `CHANGELOG.md`, then publish a GitHub
-Release for the new tag. The `Publish` workflow builds, tests, and publishes to npm.
+Release for the new tag. The `Publish` workflow builds, tests, and publishes to npm,
+then publishes `server.json` to the [MCP Registry](https://registry.modelcontextprotocol.io)
+(its version is set from `package.json`, so don't bump it by hand).

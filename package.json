@@ -1,6 +1,7 @@
 {
   "name": "@dataville/dataville-mcp",
   "version": "0.1.5",
+  "mcpName": "io.github.datavilleorg/dataville-mcp",
   "description": "MCP server exposing Dataville's data source API as tools for MCP clients",
   "private": false,
   "license": "MIT",
