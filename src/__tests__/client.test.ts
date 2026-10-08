@@ -1,6 +1,6 @@
 import { test, beforeEach, afterEach } from "node:test";
 import assert from "node:assert/strict";
-import { searchDataSource, DatavilleApiError, DatavilleAuthError } from "../client.js";
+import { searchDataSource, queryDataville, DatavilleApiError, DatavilleAuthError } from "../client.js";
 
 const ORIGINAL_ENV = { ...process.env };
 const originalFetch = global.fetch;
@@ -166,5 +166,57 @@ test("falls back to a generic error message when the response body isn't JSON", 
   await assert.rejects(
     () => searchDataSource("wikipedia", "test"),
     /Dataville API request failed with status 500/
+  );
+});
+
+test("queryDataville POSTs JSON with auth headers to /api/v1/query", async () => {
+  let capturedUrl: string | undefined;
+  let capturedInit: any;
+  global.fetch = (async (url: any, init: any) => {
+    capturedUrl = String(url);
+    capturedInit = init;
+    return new Response(JSON.stringify({ status: "success", rows: [] }), { status: 200 });
+  }) as typeof fetch;
+
+  await queryDataville("SELECT 1");
+
+  assert.equal(capturedUrl, "https://api.example.test/api/v1/query");
+  assert.equal(capturedInit.method, "POST");
+  assert.equal(capturedInit.headers.Authorization, "Bearer dataville_test_key");
+  assert.equal(capturedInit.headers["Content-Type"], "application/json");
+  assert.equal(capturedInit.body, JSON.stringify({ sql: "SELECT 1" }));
+});
+
+test("queryDataville reads the top-level message field on errors", async () => {
+  global.fetch = (async () =>
+    new Response(JSON.stringify({ status: "error", message: "Disallowed operation: COPY" }), {
+      status: 400,
+    })) as typeof fetch;
+
+  await assert.rejects(
+    () => queryDataville("SELECT 1; COPY x TO 'y'"),
+    (err: unknown) => {
+      assert.ok(err instanceof DatavilleApiError);
+      assert.equal(err.status, 400);
+      assert.equal(err.message, "Disallowed operation: COPY");
+      return true;
+    }
+  );
+});
+
+test("a 401 says the API key was not recognised, not that it is missing", async () => {
+  global.fetch = (async () =>
+    new Response(
+      JSON.stringify({ status: "error", message: "Authentication required. Include your API key in the Authorization header." }),
+      { status: 401 }
+    )) as typeof fetch;
+
+  await assert.rejects(
+    () => queryDataville("SELECT 1"),
+    (err: unknown) => {
+      assert.ok(err instanceof DatavilleAuthError);
+      assert.match(err.message, /not recognised/);
+      return true;
+    }
   );
 });

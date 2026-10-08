@@ -5,6 +5,26 @@ All notable changes to this project are documented here. This project follows
 
 ## [Unreleased]
 
+### Added
+- `describe_dataville_source` tool: a source's keyword format, an example that
+  returns a result, and the SQL tables and columns it has. Static; makes no
+  network calls.
+- `query_dataville` tool: read-only SQL `SELECT` (DuckDB) over Dataville's
+  stored tables via `POST /api/v1/query`, for lists, filters, aggregates,
+  joins across sources, and paging with `LIMIT`/`OFFSET`. Up to 1,000 rows per
+  call; billed per row.
+- `search_dataville` takes an explicit `summary` flag to truncate `body`.
+- Server `instructions` telling clients which tool to use for what.
+- Integration test checking every declared SQL table and column against the
+  live query engine (uses `LIMIT 0`, so it is not billed).
+
+### Changed
+- `list_dataville_sources` now includes each source's SQL table names.
+- `search_dataville` describes what it actually returns (the single best
+  match) and points to `query_dataville` for multi-row results.
+- A 401 from the API now raises "API key not recognised" rather than the API's
+  "include your API key" message, since a key is always sent.
+
 ## [0.1.6] - 2026-10-08
 
 ### Added

@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { searchDataSource, DatavilleApiError } from "../client.js";
-import { DATAVILLE_SOURCES } from "../sources.js";
+import { searchDataSource, queryDataville, DatavilleApiError } from "../client.js";
+import { DATAVILLE_SOURCES, DATAVILLE_SOURCE_DETAILS } from "../sources.js";
 
 /**
  * Live integration tests against the real Dataville API.
@@ -16,20 +16,10 @@ import { DATAVILLE_SOURCES } from "../sources.js";
  */
 const hasKey = Boolean(process.env.DATAVILLE_API_KEY);
 
-// Keyword that should return a result from every source.
-const PROBES: Record<string, string> = {
-  wikipedia: "Machine learning",
-  arxiv: "transformer",
-  gutenberg: "Alice",
-  census: "population",
-  fooddata: "apple",
-  paperswithcode: "transformer",
-  edgar: "Apple",
-  openalex: "transformer",
-  pypi: "requests",
-  stackexchange: "python",
-  news: "technology",
-};
+// Each source's exampleKeywords should return a result.
+const PROBES: Record<string, string> = Object.fromEntries(
+  DATAVILLE_SOURCE_DETAILS.map((s) => [s.name, s.exampleKeywords])
+);
 
 test("every declared source name is accepted by the live API", { skip: !hasKey }, async (t) => {
   for (const { name } of DATAVILLE_SOURCES) {
@@ -53,6 +43,16 @@ test("every declared source name is accepted by the live API", { skip: !hasKey }
         }
         throw err;
       }
+    });
+  }
+});
+
+test("every declared SQL table and column exists in the live query engine", { skip: !hasKey }, async (t) => {
+  for (const table of DATAVILLE_SOURCE_DETAILS.flatMap((s) => s.sqlTables)) {
+    await t.test(table.name, async () => {
+      // LIMIT 0 checks the columns without returning (or billing) any rows.
+      const result = await queryDataville(`SELECT ${table.columns.join(", ")} FROM ${table.name} LIMIT 0`);
+      assert.equal((result as any).status, "success");
     });
   }
 });
