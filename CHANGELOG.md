@@ -5,6 +5,17 @@ All notable changes to this project are documented here. This project follows
 
 ## [Unreleased]
 
+### Added
+- Both tools declare all four MCP annotation hints (`readOnlyHint`,
+  `destructiveHint`, `idempotentHint`, `openWorldHint`), so clients can tell
+  they only read data and never change anything.
+- Tests that connect a client to the server in-process and call each tool by
+  name, plus one asserting every tool carries all four hints.
+
+### Changed
+- Server setup moved to `src/server.ts` (`createServer()`); `src/index.ts`
+  only wires it to stdio.
+
 ## [0.1.5] - 2026-10-08
 
 ### Added
