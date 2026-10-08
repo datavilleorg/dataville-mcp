@@ -1,6 +1,12 @@
 # dataville-mcp
 
 [![M8ven Score](https://m8ven.ai/badge/mcp/datavilleorg-dataville-mcp-u1eou7?v=6abe1c0b98731d0af6f8978f1b3778e6)](https://m8ven.ai/mcp/datavilleorg-dataville-mcp-u1eou7?s=readme)
+[![npm](https://img.shields.io/npm/v/@dataville/dataville-mcp)](https://www.npmjs.com/package/@dataville/dataville-mcp)
+[![CI](https://github.com/datavilleorg/dataville-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/datavilleorg/dataville-mcp/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+
+[![Install in Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=dataville&config=eyJ1cmwiOiJodHRwczovL2FwaS5kYXRhdmlsbGUuY29tL21jcCJ9)
+[![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_Dataville-0098FF?logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=dataville&config=%7B%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fapi.dataville.com%2Fmcp%22%7D)
 
 MCP server exposing Dataville's data source API as tools for MCP clients (Claude Desktop, Claude Code, etc.).
 
@@ -16,6 +22,16 @@ Requires a Dataville API key — get one from the [Dataville dashboard](https://
 
 - `list_dataville_sources` — lists the data sources available via `search_dataville`.
 - `search_dataville` — query a data source: `{ source, keywords, params? }`.
+
+## What you can ask
+
+Once connected, ask in plain language and the client picks the source:
+
+- "Find an arXiv paper on retrieval-augmented generation and summarize it."
+- "What did Apple report in its latest SEC filing?"
+- "What's the median household income in Travis County, Texas, per the US Census?"
+- "How much protein is in 100 g of cooked lentils, according to USDA FoodData?"
+- "Look up the `requests` package on PyPI — what's the latest version and license?"
 
 ## Setup
 
@@ -34,6 +50,7 @@ claude mcp add --transport http dataville https://api.dataville.com/mcp
 
 That works with no credentials at all (anonymous limits). Add
 `--header "Authorization: Bearer dataville_your_key_here"` for the full quota.
+Cursor and VS Code users can use the install buttons at the top of this page.
 Other clients take the same URL; the app's Integrations page has the exact
 snippet for each. Use the hosted endpoint unless you specifically want to pin a
 version or work offline — the rest of this section covers that local setup.
