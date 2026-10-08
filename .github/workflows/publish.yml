@@ -44,4 +44,16 @@ jobs:
         env:
           MCP_PRIVATE_KEY: ${{ secrets.MCP_PRIVATE_KEY }}
         run: ./mcp-publisher login dns --domain dataville.com --private-key "$MCP_PRIVATE_KEY"
+      # The registry validates the package against npm, which can take a minute
+      # to serve a version it just accepted (v0.1.6 failed this way).
+      - name: Wait for the version to appear on npm
+        run: |
+          SPEC="$(node -p "require('./package.json').name")@$(node -p "require('./package.json').version")"
+          for i in $(seq 1 30); do
+            npm view "$SPEC" version >/dev/null 2>&1 && exit 0
+            echo "Waiting for $SPEC on npm ($i/30)..."
+            sleep 10
+          done
+          echo "$SPEC did not appear on npm within 5 minutes" >&2
+          exit 1
       - run: ./mcp-publisher publish
