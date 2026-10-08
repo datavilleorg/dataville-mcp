@@ -1,6 +1,6 @@
 {
   "name": "@dataville/dataville-mcp",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "mcpName": "com.dataville/dataville-mcp",
   "description": "MCP server exposing Dataville's data source API as tools for MCP clients",
   "private": false,
