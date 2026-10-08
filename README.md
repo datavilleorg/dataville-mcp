@@ -131,3 +131,9 @@ To cut a release: bump the version, update `CHANGELOG.md`, then publish a GitHub
 Release for the new tag. The `Publish` workflow builds, tests, and publishes to npm,
 then publishes `server.json` to the [MCP Registry](https://registry.modelcontextprotocol.io)
 (its version is set from `package.json`, so don't bump it by hand).
+
+The registry name `com.dataville/dataville-mcp` is authorized by a DNS TXT record
+on the `dataville.com` apex (`v=MCPv1; k=ed25519; p=<public key>`), checked
+against the Ed25519 private key in the `MCP_PRIVATE_KEY` repo secret (hex). If the
+`mcp-registry` job fails at login, check that record and secret, then re-run just
+that job.

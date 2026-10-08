@@ -8,7 +8,7 @@ All notable changes to this project are documented here. This project follows
 ## [0.1.5] - 2026-10-02
 
 ### Added
-- Listed in the official MCP Registry as `io.github.datavilleorg/dataville-mcp`
+- Listed in the official MCP Registry as `com.dataville/dataville-mcp`
   (`server.json` describes both the npm package and the hosted endpoint).
   `package.json` carries the matching `mcpName`, and the `Publish` workflow
   publishes each release to the registry after npm.

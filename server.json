@@ -1,6 +1,6 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.datavilleorg/dataville-mcp",
+  "name": "com.dataville/dataville-mcp",
   "title": "Dataville",
   "description": "Search Wikipedia, arXiv, SEC EDGAR, US Census, USDA, PyPI and more through one Dataville API.",
   "websiteUrl": "https://dataville.com",

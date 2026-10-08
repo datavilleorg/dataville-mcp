@@ -23,13 +23,25 @@ jobs:
       - run: npm run build
       - run: npm test
       - run: npm publish --access public
-      # List the release in the MCP Registry. Auth is GitHub OIDC (no token),
-      # which proves control of the io.github.datavilleorg/ namespace.
+
+  # Separate job so a registry failure can be re-run without re-publishing npm
+  # (which would fail: the version already exists).
+  mcp-registry:
+    needs: publish
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
       - name: Install mcp-publisher
         run: curl -sSfL https://github.com/modelcontextprotocol/registry/releases/download/v1.8.1/mcp-publisher_linux_amd64.tar.gz | tar xz mcp-publisher
       - name: Set server.json version from package.json
         run: |
           VERSION=$(node -p "require('./package.json').version")
           jq --arg v "$VERSION" '.version = $v | .packages[0].version = $v' server.json > server.tmp && mv server.tmp server.json
-      - run: ./mcp-publisher login github-oidc
+      # DNS auth proves control of dataville.com, which grants the com.dataville/ namespace.
+      - name: Log in to MCP Registry
+        env:
+          MCP_PRIVATE_KEY: ${{ secrets.MCP_PRIVATE_KEY }}
+        run: ./mcp-publisher login dns --domain dataville.com --private-key "$MCP_PRIVATE_KEY"
       - run: ./mcp-publisher publish
