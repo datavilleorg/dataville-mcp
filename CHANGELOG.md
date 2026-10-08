@@ -25,6 +25,14 @@ All notable changes to this project are documented here. This project follows
 - A 401 from the API now raises "API key not recognised" rather than the API's
   "include your API key" message, since a key is always sent.
 
+### Security
+- Upgraded `@modelcontextprotocol/sdk` to 1.32.1 (GHSA-6qxp-vccf-f47h, high)
+  and refreshed `fast-uri`, `hono` and `ip-address` past their advisories.
+- `DATAVILLE_API_BASE_URL` must use https; plain http is refused except for
+  localhost, so the API key is never sent unencrypted.
+- Added `SECURITY.md`, a README section on where the API key is sent, and
+  Dependabot for npm and GitHub Actions updates.
+
 ## [0.1.6] - 2026-10-08
 
 ### Added

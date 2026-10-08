@@ -220,3 +220,26 @@ test("a 401 says the API key was not recognised, not that it is missing", async 
     }
   );
 });
+
+test("refuses to send the API key to a plain-http base URL", async () => {
+  let called = false;
+  global.fetch = (async () => {
+    called = true;
+    return new Response(JSON.stringify({}), { status: 200 });
+  }) as typeof fetch;
+
+  for (const baseUrl of ["http://api.dataville.com", "http://evil.example", "ftp://api.example.test", "not a url"]) {
+    process.env.DATAVILLE_API_BASE_URL = baseUrl;
+    await assert.rejects(() => searchDataSource("wikipedia", "test"), /DATAVILLE_API_BASE_URL/);
+    await assert.rejects(() => queryDataville("SELECT 1"), /DATAVILLE_API_BASE_URL/);
+  }
+  assert.equal(called, false);
+});
+
+test("allows plain http for a local backend", async () => {
+  global.fetch = (async () => new Response(JSON.stringify({ ok: true }), { status: 200 })) as typeof fetch;
+  for (const baseUrl of ["http://localhost:5000", "http://127.0.0.1:5000", "http://[::1]:5000"]) {
+    process.env.DATAVILLE_API_BASE_URL = baseUrl;
+    assert.deepEqual(await searchDataSource("wikipedia", "test"), { ok: true });
+  }
+});
