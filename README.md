@@ -1,7 +1,7 @@
 # dataville-mcp
 
-[![M8ven Score](https://m8ven.ai/badge/mcp/datavilleorg-dataville-mcp-u1eou7?v=6abe1c0b98731d0af6f8978f1b3778e6)](https://m8ven.ai/mcp/datavilleorg-dataville-mcp-u1eou7?s=readme)
 [![Glama MCP server score](https://glama.ai/mcp/servers/datavilleorg/dataville-mcp/badges/score.svg)](https://glama.ai/mcp/servers/datavilleorg/dataville-mcp)
+[![M8ven Score](https://m8ven.ai/badge/mcp/datavilleorg-dataville-mcp-u1eou7?v=6abe1c0b98731d0af6f8978f1b3778e6)](https://m8ven.ai/mcp/datavilleorg-dataville-mcp-u1eou7?s=readme)
 [![npm](https://img.shields.io/npm/v/@dataville/dataville-mcp)](https://www.npmjs.com/package/@dataville/dataville-mcp)
 [![CI](https://github.com/datavilleorg/dataville-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/datavilleorg/dataville-mcp/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
