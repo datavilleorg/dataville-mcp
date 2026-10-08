@@ -1,0 +1,53 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.dataville/dataville-mcp",
+  "title": "Dataville",
+  "description": "Search Wikipedia, arXiv, SEC EDGAR, US Census, USDA, PyPI and more through one Dataville API.",
+  "websiteUrl": "https://dataville.com",
+  "repository": {
+    "url": "https://github.com/datavilleorg/dataville-mcp",
+    "source": "github"
+  },
+  "version": "0.1.5",
+  "packages": [
+    {
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
+      "identifier": "@dataville/dataville-mcp",
+      "version": "0.1.5",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "DATAVILLE_API_KEY",
+          "description": "Dataville API key from https://app.dataville.com/api-keys",
+          "isRequired": true,
+          "isSecret": true,
+          "format": "string"
+        },
+        {
+          "name": "DATAVILLE_API_BASE_URL",
+          "description": "API base URL; defaults to https://api.dataville.com",
+          "isRequired": false,
+          "format": "string"
+        }
+      ]
+    }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://api.dataville.com/mcp",
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "Optional 'Bearer <Dataville API key>' for the full quota; anonymous limits apply without it",
+          "isRequired": false,
+          "isSecret": true,
+          "format": "string"
+        }
+      ]
+    }
+  ]
+}

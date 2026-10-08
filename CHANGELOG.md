@@ -5,7 +5,13 @@ All notable changes to this project are documented here. This project follows
 
 ## [Unreleased]
 
-## [0.1.5] - 2026-10-02
+## [0.1.5] - 2026-10-08
+
+### Added
+- Listed in the official MCP Registry as `com.dataville/dataville-mcp`
+  (`server.json` describes both the npm package and the hosted endpoint).
+  `package.json` carries the matching `mcpName`, and the `Publish` workflow
+  publishes each release to the registry after npm.
 
 ### Fixed
 - `search_dataville` rejects a source or keywords of exactly `.` or `..`.
