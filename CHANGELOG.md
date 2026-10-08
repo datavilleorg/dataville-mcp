@@ -5,6 +5,8 @@ All notable changes to this project are documented here. This project follows
 
 ## [Unreleased]
 
+## [0.1.6] - 2026-10-08
+
 ### Added
 - Both tools declare all four MCP annotation hints (`readOnlyHint`,
   `destructiveHint`, `idempotentHint`, `openWorldHint`), so clients can tell
@@ -15,6 +17,7 @@ All notable changes to this project are documented here. This project follows
 ### Changed
 - Server setup moved to `src/server.ts` (`createServer()`); `src/index.ts`
   only wires it to stdio.
+- README shows the M8ven trust score badge.
 
 ## [0.1.5] - 2026-10-08
 
