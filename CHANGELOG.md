@@ -5,7 +5,7 @@ All notable changes to this project are documented here. This project follows
 
 ## [Unreleased]
 
-## [0.1.5] - 2026-10-02
+## [0.1.5] - 2026-10-08
 
 ### Added
 - Listed in the official MCP Registry as `com.dataville/dataville-mcp`
