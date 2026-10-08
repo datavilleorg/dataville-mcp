@@ -1,6 +1,7 @@
 # dataville-mcp
 
 [![M8ven Score](https://m8ven.ai/badge/mcp/datavilleorg-dataville-mcp-u1eou7?v=6abe1c0b98731d0af6f8978f1b3778e6)](https://m8ven.ai/mcp/datavilleorg-dataville-mcp-u1eou7?s=readme)
+[![Glama MCP server score](https://glama.ai/mcp/servers/datavilleorg/dataville-mcp/badges/score.svg)](https://glama.ai/mcp/servers/datavilleorg/dataville-mcp)
 [![npm](https://img.shields.io/npm/v/@dataville/dataville-mcp)](https://www.npmjs.com/package/@dataville/dataville-mcp)
 [![CI](https://github.com/datavilleorg/dataville-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/datavilleorg/dataville-mcp/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
@@ -20,8 +21,18 @@ Requires a Dataville API key — get one from the [Dataville dashboard](https://
 
 ## Tools
 
-- `list_dataville_sources` — lists the data sources available via `search_dataville`.
-- `search_dataville` — query a data source: `{ source, keywords, params? }`.
+| Tool | What it does |
+| --- | --- |
+| `list_dataville_sources` | Every source, with the SQL tables (if any) you can query for it. |
+| `describe_dataville_source` | One source's keyword format, a working example, and its tables' columns: `{ source }`. |
+| `search_dataville` | Look one thing up by keywords and get the best match: `{ source, keywords, summary? }`. |
+| `query_dataville` | Read-only SQL `SELECT` over the stored tables for lists, filters, counts, joins, and paging with `LIMIT`/`OFFSET`: `{ sql }`. |
+
+All four only read data. `query_dataville` covers every stored source except
+`census` and `news`, which are fetched live per search. It returns at most
+1,000 rows per call and is billed per row returned. It reads Dataville's stored
+copy: some sources are loaded in bulk, others only hold records fetched before,
+so for one specific item `search_dataville` is the reliable route.
 
 ## What you can ask
 
@@ -32,6 +43,8 @@ Once connected, ask in plain language and the client picks the source:
 - "What's the median household income in Travis County, Texas, per the US Census?"
 - "How much protein is in 100 g of cooked lentils, according to USDA FoodData?"
 - "Look up the `requests` package on PyPI — what's the latest version and license?"
+- "List ten Project Gutenberg books by Jane Austen, with their subjects."
+- "List five USDA FoodData entries with 'lentils' in the name, with their categories."
 
 ## Setup
 
@@ -131,6 +144,7 @@ on its own proves nothing.
 | `Using Dataville, what is the latest version of the requests package on PyPI?` | A version you can confirm on pypi.org — and it moves, so it can't come from memory. |
 | `Using Dataville, get the latest SEC filing for AAPL and its revenue.` | A form type, filing date, revenue figure, and a sec.gov link to open. |
 | `Using Dataville, how much protein is in 100g of uncooked quinoa?` | The exact USDA figure, 14.1 g per 100 g. |
+| `Using Dataville SQL, list 5 Project Gutenberg books by Mark Twain.` | Calls `query_dataville` and returns titles with Gutenberg IDs you can open at gutenberg.org/ebooks/<id>. |
 
 Clients show when a tool ran. If you don't see that, say "use dataville" in the
 prompt to make it explicit, and check the answer against the source.

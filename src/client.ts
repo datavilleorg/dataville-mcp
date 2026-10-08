@@ -67,16 +67,54 @@ export async function searchDataSource(
     },
   });
 
+  return readResponse(response);
+}
+
+/**
+ * Run a read-only SQL SELECT against Dataville's stored copy of its sources
+ * (DuckDB over the tables listed by describe_dataville_source). The API
+ * rejects anything but SELECT, caps results at 1,000 rows, and times out after
+ * 30 seconds; it bills per row returned.
+ */
+export async function queryDataville(sql: string): Promise<unknown> {
+  const { apiKey, baseUrl } = getConfig();
+
+  const response = await fetch(new URL("/api/v1/query", baseUrl), {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "User-Agent": USER_AGENT,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ sql }),
+  });
+
+  return readResponse(response);
+}
+
+const FIX_KEY_HINT =
+  "Check the key in your MCP client config, or generate a new one at https://app.dataville.com/api-keys.";
+
+async function readResponse(response: Response): Promise<unknown> {
   const body = await response.json().catch(() => undefined);
 
+  // SQL queries need an account, so an unrecognised key gets a 401 there
+  // rather than the anonymous fallback search uses. The API's own message
+  // ("include your API key") would be misleading — we did include one.
+  if (response.status === 401) {
+    throw new DatavilleAuthError(`Your DATAVILLE_API_KEY was not recognised. ${FIX_KEY_HINT}`);
+  }
+
   if (!response.ok) {
-    // Errors come back as { status: "error", data: { error: "..." } }. Those
-    // messages are useful to the model — "no results for X", or the full list
-    // of valid sources — so prefer them over a bare status code.
+    // Search errors come back as { status: "error", data: { error: "..." } },
+    // query errors as { status: "error", message: "..." }. Those messages are
+    // useful to the model — "no results for X", the list of valid sources, or
+    // the SQL error — so prefer them over a bare status code.
     const apiMessage =
       body && typeof body === "object"
         ? (body as { data?: { error?: unknown } }).data?.error ??
-          (body as { error?: unknown }).error
+          (body as { error?: unknown }).error ??
+          (body as { message?: unknown }).message
         : undefined;
     const message =
       typeof apiMessage === "string" && apiMessage.length > 0
@@ -96,7 +134,7 @@ export async function searchDataSource(
     throw new DatavilleAuthError(
       "Your DATAVILLE_API_KEY was not recognised, so this request fell back to anonymous access " +
         "(much lower rate limits, and usage is not attributed to your account). " +
-        "Check the key in your MCP client config, or generate a new one at https://app.dataville.com/api-keys."
+        FIX_KEY_HINT
     );
   }
 
