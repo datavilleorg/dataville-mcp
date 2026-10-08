@@ -145,7 +145,8 @@ npm run build  # tsc
 
 ## Releasing
 
-Publishes run from CI via npm trusted publishing (OIDC) — no tokens are stored.
+Publishes run from CI. npm uses trusted publishing (OIDC), so no npm token is
+stored; the MCP Registry step signs in with the `MCP_PRIVATE_KEY` repo secret.
 To cut a release: bump the version, update `CHANGELOG.md`, then publish a GitHub
 Release for the new tag. The `Publish` workflow builds, tests, and publishes to npm,
 then publishes `server.json` to the [MCP Registry](https://registry.modelcontextprotocol.io)
