@@ -1,5 +1,7 @@
 # dataville-mcp
 
+[![M8ven Score](https://m8ven.ai/badge/mcp/datavilleorg-dataville-mcp-u1eou7?v=6abe1c0b98731d0af6f8978f1b3778e6)](https://m8ven.ai/mcp/datavilleorg-dataville-mcp-u1eou7?s=readme)
+
 MCP server exposing Dataville's data source API as tools for MCP clients (Claude Desktop, Claude Code, etc.).
 
 [Dataville](https://dataville.com) is a unified REST API over ten public datasets —
