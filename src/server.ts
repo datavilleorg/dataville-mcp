@@ -112,7 +112,7 @@ export function createServer(): McpServer {
           .optional()
           .describe("If true, truncate `body` to its first 100 characters to save tokens"),
         params: z
-          .record(z.union([z.string(), z.number(), z.boolean()]))
+          .record(z.string(), z.union([z.string(), z.number(), z.boolean()]))
           .optional()
           .describe("Extra query-string parameters passed through to the API as-is. Most callers need none."),
       },
