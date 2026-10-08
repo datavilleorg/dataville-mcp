@@ -123,6 +123,18 @@ every project instead of just the current one.
 `DATAVILLE_API_BASE_URL` is optional and defaults to `https://api.dataville.com`;
 set it to `http://localhost:5000` to point at a local backend during development.
 
+### Where your API key goes
+
+The server reads `DATAVILLE_API_KEY` from its environment and sends it only as
+an `Authorization: Bearer` header to `DATAVILLE_API_BASE_URL`, which is
+`https://api.dataville.com` unless you change it. It never logs the key or sends
+it anywhere else. The base URL must use `https`. Plain `http` is accepted only
+for `localhost`, `127.0.0.1` and `[::1]`, so the key never crosses the network
+unencrypted.
+
+All four tools are read-only: they search and query Dataville and never create,
+change or delete anything.
+
 ### Running from source
 
 ```bash

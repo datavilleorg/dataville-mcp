@@ -34,7 +34,29 @@ function getConfig() {
     );
   }
   const baseUrl = process.env.DATAVILLE_API_BASE_URL || DEFAULT_BASE_URL;
+  assertSafeBaseUrl(baseUrl);
   return { apiKey, baseUrl };
+}
+
+const LOCAL_HOSTS = new Set(["localhost", "127.0.0.1", "[::1]"]);
+
+/**
+ * Every request carries the API key, so refuse a base URL that would send it
+ * in cleartext. Plain http is allowed only for a local backend.
+ */
+function assertSafeBaseUrl(baseUrl: string) {
+  let url: URL;
+  try {
+    url = new URL(baseUrl);
+  } catch {
+    throw new Error(`DATAVILLE_API_BASE_URL "${baseUrl}" is not a valid URL.`);
+  }
+  if (url.protocol === "https:") return;
+  if (url.protocol === "http:" && LOCAL_HOSTS.has(url.hostname)) return;
+  throw new Error(
+    `DATAVILLE_API_BASE_URL must use https (plain http is allowed only for localhost), got "${baseUrl}". ` +
+      "Your API key is sent with every request, so it is not sent over an unencrypted connection."
+  );
 }
 
 export async function searchDataSource(
