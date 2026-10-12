@@ -5,6 +5,17 @@ All notable changes to this project are documented here. This project follows
 
 ## [Unreleased]
 
+## [0.1.8] - 2026-10-12
+
+### Changed
+- npm: added keywords (`mcp`, `mcp-server`, `sec-edgar`, `wikipedia`, `rag`,
+  `ai-agents` and others), a docs homepage, and a description of what the
+  package is for.
+- MCP Registry: `server.json` describes what the server is for instead of
+  listing sources.
+- README: links to docs.dataville.com, the example repositories and the live
+  demos at app.dataville.com/demos.
+
 ## [0.1.7] - 2026-10-08
 
 ### Added

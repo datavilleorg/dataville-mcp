@@ -1,6 +1,6 @@
 {
   "name": "@dataville/dataville-mcp",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "mcpName": "com.dataville/dataville-mcp",
   "description": "MCP server for Dataville: SEC EDGAR filings, Wikipedia, arXiv, US Census and more for AI agents, with sources and licenses",
   "keywords": [
