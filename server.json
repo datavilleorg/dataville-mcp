@@ -2,7 +2,7 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "com.dataville/dataville-mcp",
   "title": "Dataville",
-  "description": "Search Wikipedia, arXiv, SEC EDGAR, US Census, USDA, PyPI and more through one Dataville API.",
+  "description": "SEC filings, Wikipedia, arXiv, US Census and more for AI agents, with every answer source-linked.",
   "websiteUrl": "https://dataville.com",
   "repository": {
     "url": "https://github.com/datavilleorg/dataville-mcp",
