@@ -21,6 +21,8 @@ Requires a Dataville API key — get one from the [Dataville dashboard](https://
 
 Docs: [docs.dataville.com](https://docs.dataville.com) · [Connect an AI tool](https://docs.dataville.com/ai-tools) · [Data sources](https://docs.dataville.com/data-sources). Examples: [dataville-wikimedia](https://github.com/datavilleorg/dataville-wikimedia), [dataville-sec-edgar](https://github.com/datavilleorg/dataville-sec-edgar), [company-intelligence-agent](https://github.com/datavilleorg/company-intelligence-agent). Live demos: [app.dataville.com/demos](https://app.dataville.com/demos).
 
+[![Dataville MCP server](https://mcprush.com/badge/dataville-mcp/card.svg)](https://mcprush.com/to/dataville-mcp?ref=badge)
+
 ## Tools
 
 | Tool | What it does |
