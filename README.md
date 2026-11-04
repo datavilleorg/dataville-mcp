@@ -5,9 +5,19 @@
 [![npm](https://img.shields.io/npm/v/@dataville/dataville-mcp)](https://www.npmjs.com/package/@dataville/dataville-mcp)
 [![CI](https://github.com/datavilleorg/dataville-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/datavilleorg/dataville-mcp/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+<a href="https://siftfox.com/tool/dataville">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://siftfox.com/badges/live-dark.svg" />
+    <img src="https://siftfox.com/badges/live-light.svg" alt="Live on SiftFox" width="168" height="56" />
+  </picture>
+</a>
 
 [![Install in Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=dataville&config=eyJ1cmwiOiJodHRwczovL2FwaS5kYXRhdmlsbGUuY29tL21jcCJ9)
 [![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_Dataville-0098FF?logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=dataville&config=%7B%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fapi.dataville.com%2Fmcp%22%7D)
+
+[![Dataville MCP server](https://mcprush.com/badge/dataville-mcp/card.svg)](https://mcprush.com/to/dataville-mcp?ref=badge)
+
+
 
 MCP server exposing Dataville's data source API as tools for MCP clients (Claude Desktop, Claude Code, etc.).
 
@@ -21,14 +31,7 @@ Requires a Dataville API key — get one from the [Dataville dashboard](https://
 
 Docs: [docs.dataville.com](https://docs.dataville.com) · [Connect an AI tool](https://docs.dataville.com/ai-tools) · [Data sources](https://docs.dataville.com/data-sources). Examples: [dataville-wikimedia](https://github.com/datavilleorg/dataville-wikimedia), [dataville-sec-edgar](https://github.com/datavilleorg/dataville-sec-edgar), [company-intelligence-agent](https://github.com/datavilleorg/company-intelligence-agent). Live demos: [app.dataville.com/demos](https://app.dataville.com/demos).
 
-[![Dataville MCP server](https://mcprush.com/badge/dataville-mcp/card.svg)](https://mcprush.com/to/dataville-mcp?ref=badge)
 
-<a href="https://siftfox.com/tool/dataville">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://siftfox.com/badges/live-dark.svg" />
-    <img src="https://siftfox.com/badges/live-light.svg" alt="Live on SiftFox" width="168" height="56" />
-  </picture>
-</a>
 
 ## Tools
 
