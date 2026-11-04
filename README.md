@@ -23,6 +23,13 @@ Docs: [docs.dataville.com](https://docs.dataville.com) · [Connect an AI tool](h
 
 [![Dataville MCP server](https://mcprush.com/badge/dataville-mcp/card.svg)](https://mcprush.com/to/dataville-mcp?ref=badge)
 
+<a href="https://siftfox.com/tool/dataville">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://siftfox.com/badges/live-dark.svg" />
+    <img src="https://siftfox.com/badges/live-light.svg" alt="Live on SiftFox" width="168" height="56" />
+  </picture>
+</a>
+
 ## Tools
 
 | Tool | What it does |
